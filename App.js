@@ -4,21 +4,11 @@ import CameraView from './CameraView'; // Import CameraView
 import GalleryView from './GalleryView';
 import PhotoView from './PhotoView';
 import styles from './styles'; // Import styles
-import * as Sharing from 'expo-sharing';
 
 export default function App() {
   const [view, setView] = useState('camera');
   const [photosList, setPhotosList] = useState([]);
   const [clickedPhotoUri, setClickedPhotoUri] = useState(null);
-
-  // async function share({ uri }) {
-  //   if (!(await Sharing.isAvailableAsync())) {
-  //     alert(`Uh oh, sharing isn't available on your platform`);
-  //     return;
-  //   }
-  
-  //   Sharing.shareAsync(uri);
-  // }
 
   return (
     <SafeAreaView style={styles.container}>

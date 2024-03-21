@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native';
 export default styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: '#fff',
+      width: '100%',
       justifyContent: 'center',
       alignItems: 'center',
     },
@@ -52,11 +52,25 @@ export default styles = StyleSheet.create({
     },
     galleryThumbnail: { width: 42, height: 42 },
     thumbnail: { width: 76, height: 76 },
-    backButtonContainer:{},
-    fullSizeImage: {
-      width: 300,
-      height: 600,
+    backButtonContainer: {
+      width: '100%',
+      padding: 12,
+      flexDirection: 'row',
+      justifyContent: 'flex-start',
     },
+    photoView: {
+      flex: 1,
+      width: '100%',
+      height: null,
+      resizeMode: 'contain',
+    },
+    fullSizeImage: {
+      flex: 1,
+      width: null,
+      height: null,
+      resizeMode: 'contain',
+    },
+    shareButtonContainer: { padding: 12 },
   });
 
   // const styles = StyleSheet.create({

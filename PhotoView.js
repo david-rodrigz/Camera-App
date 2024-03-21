@@ -13,14 +13,16 @@ export default function PhotoView({ photoUri, setView }) {
   
     Sharing.shareAsync(uri);
   }
-  
+
   return (
-    <View>
+    <View style={styles.photoView}>
       <View style={styles.backButtonContainer}>
         <Button title='Back' onPress={() => setView('gallery')} />
       </View>
       <Image source={{ uri: photoUri }} style={styles.fullSizeImage} />
-      <Button title='share' onPress={() => share({ uri: photoUri })} />
+      <View style={styles.shareButtonContainer}>
+        <Button title='Share' onPress={() => share({ uri: photoUri })} />
+      </View>
     </View>
   )
 }

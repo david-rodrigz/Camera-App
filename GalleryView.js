@@ -37,11 +37,11 @@ export default function GalleryView({ photosList, setPhotosList, setClickedPhoto
   const [selectedIds, setSelectedIds] = useState([]);
   const [isSelecting, setIsSelecting] = useState(false);
 
-  const handleOnSelect = () => {
-    if (selectedIds.includes(id)) {
-      setSelected(selectedIds.filter((selectedId) => selectedId !== id));
+  const handleOnSelect = (uri) => {
+    if (selectedIds.includes(uri)) {
+      setSelectedIds(selectedIds.filter((selectedId) => selectedId !== uri));
     } else {
-      setSelected([...selectedIds, id]);
+      setSelectedIds([...selectedIds, uri]);
     }
   };
 
@@ -55,7 +55,7 @@ export default function GalleryView({ photosList, setPhotosList, setClickedPhoto
 
     return (
       <TouchableOpacity
-        onPress={() => isSelecting ? handleOnSelect() : openPhoto(item.uri)}
+        onPress={() => isSelecting ? handleOnSelect(item.uri) : openPhoto(item.uri)}
         style={[
           styles.thumbnailContainer, 
           { borderColor: borderColor }
@@ -70,6 +70,7 @@ export default function GalleryView({ photosList, setPhotosList, setClickedPhoto
   const deleteSelectedItems = () => {
     const newList = photosList.filter(item => !selectedIds.includes(item.uri));
     setPhotosList(newList);
+    setIsSelecting(false);
     setSelectedIds([]); // Clear selection after deletion
   };
 
@@ -77,7 +78,14 @@ export default function GalleryView({ photosList, setPhotosList, setClickedPhoto
     <View>
       <View style={styles.backButtonContainer}>
         {!isSelecting && <Button title='Back' onPress={() => setView('camera')} />}
-        {isSelecting && <Button title='Cancel' onPress={() => setIsSelecting(false)} />}
+        {isSelecting && 
+          <Button 
+          title='Cancel' 
+          onPress={() => {
+            setIsSelecting(false);
+            setSelectedIds([]); // Clear selection
+          }} />
+        }
       </View>
       <VirtualizedList
         data={photosList}
@@ -88,10 +96,9 @@ export default function GalleryView({ photosList, setPhotosList, setClickedPhoto
         extraData={selectedIds}
       />
       <View style={styles.buttonsContainer}>
-        {/* 4 buttons: back, add, select, delete */}
-        <Button title="Select" onPress={() => setIsSelecting(true)} />
+        <Button title="Select" disabled={isSelecting} onPress={() => setIsSelecting(true)} />
         <Button title="Delete" disabled={selectedIds.length == 0} onPress={deleteSelectedItems} />
-        <Button title="Add" onPress={() => setView('camera')} />
+        <Button title="Add" disabled={isSelecting} onPress={() => setView('camera')} />
       </View>
     </View>
   );

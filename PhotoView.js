@@ -2,7 +2,6 @@ import * as Sharing from 'expo-sharing';
 import { Button, Image, View } from "react-native";
 import styles from "./styles";
 
-
 export default function PhotoView({ photoUri, setView }) {
 
   async function share({ uri }) {

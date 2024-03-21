@@ -1,37 +1,12 @@
 import React, { useState } from 'react';
 import { 
   Button,
+  FlatList, 
   Image, 
   TouchableOpacity,
   View,
-  VirtualizedList,
 } from 'react-native';
 import styles from './styles'; // Import styles
-
-// const handleOnSelect = (selectedIds, setSelected, id) => {
-//   if (selectedIds.includes(id)) {
-//     setSelected(selectedIds.filter((selectedId) => selectedId !== id));
-//   } else {
-//     setSelected([...selectedIds, id]);
-//   }
-// }
-
-// const renderItem = (isSelecting, selectedIds, setSelected) => ({ item }) => {
-//   const borderColor = selectedIds.includes(item.uri) ? '#72a4d4' : 'white';
-
-//   return (
-//     <TouchableOpacity
-//       onPress={() => isSelecting ? handleOnSelect(selectedIds, setSelected, item.uri) : setView('image')}
-//       style={[
-//         styles.textContainer, 
-//         { borderColor: borderColor }
-//       ]}
-//     >
-//       {/* thumbnail */}
-//       <Image source={{ uri: item.uri }} style={{ width: 80, height: 80 }} />
-//     </TouchableOpacity>
-//   );
-// };
 
 export default function GalleryView({ photosList, setPhotosList, setClickedPhotoUri, setView }) {
   const [selectedIds, setSelectedIds] = useState([]);
@@ -54,15 +29,12 @@ export default function GalleryView({ photosList, setPhotosList, setClickedPhoto
     const borderColor = selectedIds.includes(item.uri) ? '#72a4d4' : 'white';
 
     return (
-      <TouchableOpacity
-        onPress={() => isSelecting ? handleOnSelect(item.uri) : openPhoto(item.uri)}
-        style={[
-          styles.thumbnailContainer, 
-          { borderColor: borderColor }
-        ]}
-      >
+      <TouchableOpacity onPress={() => isSelecting ? handleOnSelect(item.uri) : openPhoto(item.uri)}>
         {/* thumbnail */}
-        <Image source={{ uri: item.uri }} style={styles.thumbnail} />
+        <Image 
+          source={{ uri: item.uri }} 
+          style={[styles.thumbnail, { borderColor: borderColor }]} 
+        />
       </TouchableOpacity>
     );
   };
@@ -75,7 +47,7 @@ export default function GalleryView({ photosList, setPhotosList, setClickedPhoto
   };
 
   return (
-    <View>
+    <View style={styles.galleryView}>
       <View style={styles.backButtonContainer}>
         {!isSelecting && <Button title='Back' onPress={() => setView('camera')} />}
         {isSelecting && 
@@ -87,13 +59,12 @@ export default function GalleryView({ photosList, setPhotosList, setClickedPhoto
           }} />
         }
       </View>
-      <VirtualizedList
+      <FlatList
         data={photosList}
         renderItem={renderItem(isSelecting, selectedIds, setSelectedIds)}
-        getItem={(photosList, index) => photosList[index]} // todo
-        getItemCount={(photosList) => photosList.length}
         keyExtractor={(item) => item.uri}
         extraData={selectedIds}
+        numColumns={4} // replace 3 with the number of columns you want
       />
       <View style={styles.buttonsContainer}>
         <Button title="Select" disabled={isSelecting} onPress={() => setIsSelecting(true)} />

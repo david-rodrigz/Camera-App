@@ -8,10 +8,9 @@ import {
 } from 'react-native';
 import styles from './styles'; // Import styles
 
-export default function CameraView({ setView, setPhotosList }) {
+export default function CameraView({ photosList, setPhotosList, setView }) {
   const [type, setType] = useState(CameraType.back);
   const [permission, requestPermission] = Camera.useCameraPermissions();
-  const [lastPicture, setLastPicture] = useState(null);
   const cameraRef = useRef(null);
 
   // Request camera permission
@@ -30,7 +29,6 @@ export default function CameraView({ setView, setPhotosList }) {
         const photo = await cameraRef.current.takePictureAsync(); // returns CameraCapturedPicture
         console.log("Photo taken!");
         setPhotosList((currentPhotos) => [...currentPhotos, photo]);
-        setLastPicture(photo);
       }
     })();
   }
@@ -44,7 +42,7 @@ export default function CameraView({ setView, setPhotosList }) {
       <View style={styles.buttonsContainer}>
         <TouchableOpacity style={styles.buttonContainer} onPress={() => setView('gallery')}>
           <View style={styles.galleryThumbnailContainer}>
-            {lastPicture != null && <Image source={{ uri: lastPicture.uri }} style={styles.galleryThumbnail} />}
+            {photosList.length > 0 && <Image source={{ uri: photosList[photosList.length-1].uri }} style={styles.galleryThumbnail} />}
           </View>
         </TouchableOpacity>
         <TouchableOpacity style={styles.captureButton} onPress={capture} />

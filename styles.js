@@ -45,13 +45,14 @@ export default styles = StyleSheet.create({
       borderWidth: 4,
       borderColor: 'rgba(255, 255, 255, 0.8)',
     },
-    thumbnailContainer: {
-      width: 80, 
-      height: 80,
-      borderWidth: 2,
-    },
     galleryThumbnail: { width: 42, height: 42 },
-    thumbnail: { width: 76, height: 76 },
+    galleryView: {
+      width: '100%',
+      height: '100%',
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    thumbnail: { width: 90, height: 90, borderWidth: 4, },
     backButtonContainer: {
       width: '100%',
       padding: 12,
@@ -72,43 +73,3 @@ export default styles = StyleSheet.create({
     },
     shareButtonContainer: { padding: 12 },
   });
-
-  // const styles = StyleSheet.create({
-  //   container: {
-  //     flex: 1,
-  //   },
-  //   buttonsContainer: {
-  //     flexDirection: 'row',
-  //     justifyContent: 'space-around',
-  //     alignItems: 'center',
-  //     padding: 10,
-  //   },
-  //   thumbnailContainer: {
-  //     padding: 8,
-  //     borderWidth: 2
-  //     borderRadius: 6,
-  //     marginVertical: 4,
-  //     marginHorizontal: 20,
-  //   },
-  //   text: {
-  //     fontSize: 20,
-  //   },
-  //   newItemPrompt: {
-  //     position: 'absolute',
-  //     bottom: 10,
-  //     width: '100%',
-  //     flexDirection: 'row',
-  //     justifyContent: 'space-around',
-  //     alignItems: 'center',
-  //   },
-  //   input: {
-  //     paddingVertical: 15,
-  //     paddingHorizontal: 15,
-  //     marginBottom: 10,
-  //     borderWidth: 1,
-  //     borderRadius: 60,
-  //     backgroundColor: 'white',
-  //     borderColor: '#C0C0C0',
-  //     width: '90%',
-  //   },
-  // });

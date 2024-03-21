@@ -45,9 +45,17 @@ export default styles = StyleSheet.create({
       borderWidth: 4,
       borderColor: 'rgba(255, 255, 255, 0.8)',
     },
-    galleryThumbnail: {
-      width: 42, // container width - container borderWidth*2 = 42
-      height: 42
+    thumbnailContainer: {
+      width: 80, 
+      height: 80,
+      borderWidth: 2,
+    },
+    galleryThumbnail: { width: 42, height: 42 },
+    thumbnail: { width: 76, height: 76 },
+    backButtonContainer:{},
+    fullSizeImage: {
+      width: 300,
+      height: 600,
     },
   });
 
@@ -61,8 +69,9 @@ export default styles = StyleSheet.create({
   //     alignItems: 'center',
   //     padding: 10,
   //   },
-  //   textContainer: {
+  //   thumbnailContainer: {
   //     padding: 8,
+  //     borderWidth: 2
   //     borderRadius: 6,
   //     marginVertical: 4,
   //     marginHorizontal: 20,

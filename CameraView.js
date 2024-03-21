@@ -1,6 +1,7 @@
 import { Camera, CameraType } from 'expo-camera';
 import { useEffect, useRef, useState } from 'react';
 import {
+  Image, 
   Text, 
   TouchableOpacity,
   View 
@@ -10,6 +11,7 @@ import styles from './styles'; // Import styles
 export default function CameraView({ setView, setPhotosList }) {
   const [type, setType] = useState(CameraType.back);
   const [permission, requestPermission] = Camera.useCameraPermissions();
+  const [lastPicture, setLastPicture] = useState(null);
   const cameraRef = useRef(null);
 
   // Request camera permission
@@ -28,6 +30,7 @@ export default function CameraView({ setView, setPhotosList }) {
         const photo = await cameraRef.current.takePictureAsync(); // returns CameraCapturedPicture
         console.log("Photo taken!");
         setPhotosList((currentPhotos) => [...currentPhotos, photo]);
+        setLastPicture(photo);
       }
     })();
   }
@@ -40,7 +43,9 @@ export default function CameraView({ setView, setPhotosList }) {
     <Camera ref={cameraRef} style={styles.camera} type={type}>
       <View style={styles.buttonsContainer}>
         <TouchableOpacity style={styles.buttonContainer} onPress={() => setView('gallery')}>
-          <Text style={styles.ButtonText}>gallery</Text>
+          <View style={styles.galleryThumbnailContainer}>
+            {lastPicture != null && <Image source={{ uri: lastPicture.uri }} style={styles.galleryThumbnail} />}
+          </View>
         </TouchableOpacity>
         <TouchableOpacity style={styles.captureButton} onPress={capture} />
         <TouchableOpacity style={styles.buttonContainer} onPress={toggleCameraType}>

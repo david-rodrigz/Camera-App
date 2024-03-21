@@ -39,6 +39,16 @@ export default styles = StyleSheet.create({
       justifyContent: 'center',
       alignItems: 'center',
     },
+    galleryThumbnailContainer: {
+      width: 50,
+      height: 50,
+      borderWidth: 4,
+      borderColor: 'rgba(255, 255, 255, 0.8)',
+    },
+    galleryThumbnail: {
+      width: 42, // container width - container borderWidth*2 = 42
+      height: 42
+    },
   });
 
   // const styles = StyleSheet.create({
